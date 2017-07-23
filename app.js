@@ -6,23 +6,20 @@ const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
+const bcrypt = require('bcrypt');
 //to log user into a session
 const session= require('express-session');
 const passport = require('passport');
 
 //import dotenv package an dload variables
 const dotenv =require('dotenv').config();
-// const configPassport= require('../config/passport-config.js');
+const configPassport= require('./config/passport-config');
 
 //added this for angular part
 var cors = require('cors');
 // mongoose.connect(process.env.MONGODB_URI);
 //just for testing until set up dotenv and config folders
-mongoose.connect('mongodb://localhost/neighborhood');
-//import dotenv package and load variables
-//add if we are using passport-config to login
-// require('dotenv').config();
-// require('./config/passport-config.js');
+mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
 
@@ -41,16 +38,34 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(layouts);
+app.use(session({
+  secret: 'angular and express and auth and shhhhh',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 //makse sure it is before the const index.  //added this for angular part
-app.use(cors());
+app.use(cors({
+  credentials: true,//this is to allow other domians to send cookies
+  origin: ['http://localhost:4200']//this is for whatever domains that are allowed
+}));
 
+//ROUTES
 const index = require('./routes/index');
 app.use('/', index);
 
 //added this route.  here we attach the /api prefix to all the routes in teh phone-api router file. Therefore if we have a route called /home it will actually be /api/home.
 var profilesApi=require('./routes/profile-api');
 app.use('/api',profilesApi);
+
+const myAuthRoutes = require('./routes/auth-routes');
+app.use('/', myAuthRoutes);
+
+const myEventRoutes = require('./routes/events-api');
+app.use('/', myEventRoutes);
+//END OF ROUTES
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -1,45 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const profileSchema = new mongoose.Schema({
-  username: {
-    type: String
+const profileSchema = new Schema({
+  fullName: {type: String, required: true},
+  email: {type: String, required: true},
+  encryptedPassword: {type: String, required: true},
+  zipcode: {type: Number,required: true},
+  photoUrl: {type: String, default: '/images/avatar-1295430_1280.png'},
+  tellusmore: {type: String,},
+//update this to be whatever the actual eventID is.
+  eventsAttending: {type: [Schema.Types.ObjectID]},
+    //ref must be here in order for the get to get all camel Owners to work.
+    //you need ref to use populate()  //ref is the 
+    //string name of the model that the ID refers to, so this one refers to EventsModel hence Events.
+  ref: 'Events'
   },
-  encryptedPassword: {
-    type: String
-  },
-  name: {
-    type: String,
-    required: [true, 'Name is required']
-  },
-  maritalstatus: {
-    type: String,
-    required: [true, 'Marital status is required']
-  },
-  kids: {
-    type: String,
-    required: [true, 'Marital status is required']
-  },
-  zipcode: {
-    type: Number,
-    required: [true, 'Zipcode is required']
-  },
-  newtoneigborhood: {
-    type: String,
-  },
-  photoUrl: {
-    type: String, default: '/images/love-560783_640.jpg'
-  },
-  tellusmore: {
-    type: String,
-  },
-  //we are going to refer to the owner of the room below, since rooms
-  // will be thier own collection and owners will be own collection.
-  //but the collections should refer to eachother.
-  // owner: {type: Schema.Types.ObjectId}
 
-
-
-},
+//closes profileShcema
 {
   //2nd arg: additional settings (optional)
   timestamps: true

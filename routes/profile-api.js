@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 const ProfileModel= require('../models/profile-model.js');
 const bcrypt = require('bcrypt');
 const router = express.Router();
@@ -12,9 +12,8 @@ const myUploader = multer({
 });
 
 
-/* GET Profile listing* Dont think i need this since i don't
-want to display all Profiles/
-router.get('/profiles', (req, res, next) => {
+//GET All Profile listing- backend will need to use these
+router.get('api/neighbors', (req, res, next) => {
   //returns all of our profiles.
   ProfileModel.find((err, profileList) => {
     if (err) {
@@ -26,41 +25,36 @@ router.get('/profiles', (req, res, next) => {
 });
 
 /* CREATE a new Profile and add to DB. */
-router.post('/profiles',
-myUploader.single('photoUrl'),
-(req, res, next) => {
-  let theProfile;
-  if (typeof req.file != "undefined"){
-    //added username and pswd but no checks and balances, will do that in angular
-    theProfile = new ProfileModel({
-      username: req.body.username,
-      encryptedPassword: req.body.encryptedPassword,
-    name: req.body.name,
-    maritalstatus: req.body.maritalstatus,
-    kids: req.body.kids,
-    zipcode: req.body.zipcode,
-    newtoneigborhood: req.body.newtoneigborhood,
-    photoUrl: '/uploads/' + req.file.filename,
-    tellusmore: req.body.tellusmore,
-
-  });
-} else {
-
-    theProfile = new ProfileModel({
-    name: req.body.name,
-    maritalstatus: req.body.maritalstatus,
-    kids: req.body.kids,
-    zipcode: req.body.zipcode,
-    newtoneigborhood: req.body.newtoneigborhood,
-    photoUrl: "/images/love-560783_640.jpg",
-    tellusmore: req.body.tellusmore,
-
-  });
-  console.log("TheProfileConsole", theProfile);
-  console.log('**************************');
-}
-console.log("TheProfileConsole", theProfile);
-console.log('**************************');
+//this is already covered in the signup in authroutes /signup since a profile is part of a signup
+// router.post('api/profiles',
+// myUploader.single('photoUrl'),
+// (req, res, next) => {
+//   let theProfile;
+//   if (typeof req.file != "undefined"){
+//     //added username and pswd but no checks and balances, will do that in angular
+//     theProfile = new ProfileModel({
+//       fullName: req.body.signupFullName,
+//       email: req.body.signupEmail,
+//       encryptedPassword: scrambledPassword,
+//       zipcode: req.body.signupZipcode,
+//       photoUrl: '/uploads/' + req.file.filename,
+//       tellusmore: req.body.signupMore
+//   });
+// } else {
+//
+//     theProfile = new ProfileModel({
+//       fullName: req.body.signupFullName,
+//       email: req.body.signupEmail,
+//       encryptedPassword: scrambledPassword,
+//       zipcode: req.body.signupZipcode,
+//       photoUrl: "/images/avatar-1295430_1280.png",
+//       tellusmore: req.body.signupMore
+//   });
+//   // console.log("TheProfileConsole", theProfile);
+//   // console.log('**************************');
+// }
+// console.log("TheProfileConsole", theProfile);
+// console.log('**************************');
   theProfile.save((err) => {
     if (err) {
       res.json(err);
@@ -71,7 +65,6 @@ console.log('**************************');
       message: 'New Profile was created!',
       id: theProfile._id
     });
-  });
 });
 
 module.exports = router;
