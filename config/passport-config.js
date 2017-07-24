@@ -35,16 +35,21 @@ passport.use(new LocalStrategy(
     usernameField: 'loginEmail',
     passwordField: 'loginPassword'
   },
-  (theEmail,thePassword,next) => { //2nd arg: callback that is called when a user tries to login
+  (theEmail,thePassword,next) => {
+     //2nd arg: callback that is called when a user tries to login
 
     //Logic to consider: Is ther already an account with the provided username in the db?
-    UserModel.findOne(
+    ProfileModel.findOne(
       {email:theEmail},
       (err,userFromDb) => {
+        // console.log("loginEmail" + theEmail);
+        console.log("user********************" );
         if(err) {
         next(err);
         return;
       }
+      // console.log("loginnnnnnnnEmai" + loginEmail);
+
       //if the username doesn't exist in the db then the userFromDB will be empty and login will fail.
       if(userFromDb === null){
         //in passport, if you call next with false in 2nd position that means login failed.
@@ -57,6 +62,7 @@ passport.use(new LocalStrategy(
         next(null,false, { message: 'Incorrect password' });
         return;
       }
+      // console.log('hi');
       //if the new password and stored password match then they can login.s
       next(null,userFromDb);
     }

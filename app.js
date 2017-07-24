@@ -56,13 +56,10 @@ app.use(cors({
 const index = require('./routes/index');
 app.use('/', index);
 
-//added this route.  here we attach the /api prefix to all the routes in teh phone-api router file. Therefore if we have a route called /home it will actually be /api/home.
-var profilesApi=require('./routes/profile-api');
-app.use('/api',profilesApi);
-
 const myAuthRoutes = require('./routes/auth-routes');
 app.use('/', myAuthRoutes);
 
+//uncomment when ready to use
 const myEventRoutes = require('./routes/events-api');
 app.use('/', myEventRoutes);
 //END OF ROUTES

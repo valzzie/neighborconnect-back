@@ -1,11 +1,12 @@
+//uncomment when ready to use it
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const EventSchema = new Schema({
   eventName: {type: String, required: true},
   eventLocation: {type: String, required: true},
-  eventDate: {type: Date, required: true},
+  eventDate: {type: String, required: true},
   eventTime: {type: String, required: true},
-  zipcode: {type: Number,required: [true, 'Zipcode is required']},
+  zipcode: {type: String,required: [true, 'Zipcode is required']},
   photoUrl: {type: String, default: '/images/avatar-1295430_1280.png'},
   aboutEvent: {type: String,},
   peopleAttending: {type: [Schema.Types.ObjectID]},

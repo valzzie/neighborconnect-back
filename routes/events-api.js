@@ -1,3 +1,5 @@
+//uncomment when ready to use it
+
 const express = require('express');
 const EventModel= require('../models/events-model.js');
 const bcrypt = require('bcrypt');
