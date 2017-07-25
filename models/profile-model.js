@@ -9,11 +9,11 @@ const profileSchema = new Schema({
   tellusmore: {type: String},
 
 //update this to be whatever the actual eventID is.
-  // eventsAttending: {type: [Schema.Types.ObjectID]},
-    //ref must be here in order for the get to get all camel Owners to work.
-    //you need ref to use populate()  //ref is the
-    //string name of the model that the ID refers to, so this one refers to EventsModel hence Events.
-  // ref: 'Events'
+  eventsAttending: {type: [Schema.Types.ObjectID],
+    // ref must be here in order for the get to get all camel Owners to work.
+    // you need ref to use populate()  //ref is the
+    // string name of the model that the ID refers to, so this one refers to EventsModel hence Events.
+  ref: 'Events'}
   },
 
 //closes profileShcema

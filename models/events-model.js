@@ -9,10 +9,10 @@ const EventSchema = new Schema({
   zipcode: {type: String,required: [true, 'Zipcode is required']},
   photoUrl: {type: String, default: '/images/avatar-1295430_1280.png'},
   aboutEvent: {type: String,},
-  peopleAttending: {type: [Schema.Types.ObjectID]},
+  peopleAttending: {type: [Schema.Types.ObjectID],
     //ref must be here in order for the get to get all camel Owners to work.
     //you need ref to use populate()  //ref is the string name of the model that the ID refers to, so this one refers to UserModel hence User.
-  ref: 'Profile'
+  ref: 'Profile'}
 },//closes profileShcema
 {
   //2nd arg: additional settings (optional)
