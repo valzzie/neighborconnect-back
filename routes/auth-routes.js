@@ -13,24 +13,22 @@ const myUploader = multer({
 
 //**********************************************************************
 //post for the signup that is sent to Angular, if error respond in JSON
-router.post('/api/signup', (req, res, next) => {
+router.post('/api/signup', myUploader.single('file'), (req, res, next) => {
 // myUploader.single('photoUrl')
-console.log("inside the router.post signup");
+
   if(!req.body.signupEmail || !req.body.signupPassword || !req.body.signupZipcode ){
 
     //check password
-    res.status(400).json({message: "Email, password and zipcode are required to sign up!"});
-console.log("inside router post");
+    res.status(401).json({message: "Email, password and zipcode are required to sign up!"});
     return;
 
   }
-
   if (req.body.signupZipcode.length != 5){
 
-    res.status(400).json({message: "Please enter exactly 5 digits for the zipcode"});
-console.log("inside zip post");
+    res.status(401).json({message: "Please enter exactly 5 digits for the zipcode"});
     return;
   }
+
 
   //now check email
   ProfileModel.findOne(
@@ -51,6 +49,7 @@ console.log("inside zip post");
       const salt = bcrypt.genSaltSync(10);
       const scrambledPassword = bcrypt.hashSync(req.body.signupPassword, salt);
 
+
       if (typeof req.file != "undefined"){
         console.log("RE FILE" + req.file);
 console.log("_----------------------------------------");
@@ -61,7 +60,9 @@ console.log("_----------------------------------------");
             encryptedPassword: scrambledPassword,
             zipcode: req.body.signupZipcode,
             photoUrl: '/uploads/' + req.file.filename,
-            tellusmore: req.body.signupMore
+            tellusmore: req.body.signupMore,
+            //do I need this????
+            user: req.user._id
           });
       }
       else {
@@ -71,7 +72,10 @@ console.log("_----------------------------------------");
             encryptedPassword: scrambledPassword,
             zipcode: req.body.signupZipcode,
             photoUrl: "/images/avatar-1295430_1280.png",
-            tellusmore: req.body.signupMore
+            tellusmore: req.body.signupMore,
+            //do I need this????
+            user: req.user._id
+
         // console.log("TheProfileConsole", theProfile);
         // console.log('**************************');
       });
@@ -162,7 +166,8 @@ res.status(200).json(req.user);
 
 //I should also add update here in case user wants to make changes to profile.
 // GET All Profile listing- backend will need to use these
-router.get('/api/signup', (req, res, next) => {
+//was /api/signup but changed to /api/neighbors
+router.get('/api/neighbors', (req, res, next) => {
 
   //returns all of our profiles.
   ProfileModel.find((err, profileList) => {

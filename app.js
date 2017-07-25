@@ -61,7 +61,6 @@ app.use('/', myAuthRoutes);
 
 //uncomment when ready to use
 const myEventRoutes = require('./routes/events-api');
-
 app.use('/', myEventRoutes);
 //END OF ROUTES
 

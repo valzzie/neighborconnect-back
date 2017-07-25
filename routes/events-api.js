@@ -5,6 +5,13 @@ const EventModel= require('../models/events-model.js');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const passport= require('passport');
+const multer= require('multer');
+// to save user uploaded files in a specific folder
+const myUploader = multer({
+  //dest is the destination that specifies where to put the uploaded files
+  dest: __dirname + '/../public/uploads/'
+});
+
 
 //GET event listings
 // console.log("Im in / events routes");
