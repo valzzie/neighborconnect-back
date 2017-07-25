@@ -7,7 +7,8 @@ const router = express.Router();
 const passport= require('passport');
 
 //GET event listings
-router.get('/events', (req, res, next) => {
+// console.log("Im in / events routes");
+router.get('/api/events', (req, res, next) => {
   //returns all events.
   EventModel.find((err, eventList) => {
     if (err) {

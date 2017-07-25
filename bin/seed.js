@@ -6,7 +6,7 @@ mongoose.connect(process.env.MONGODB_URI);
 // We have to connect the DB again here
 // because seed.js is SEPARATE from app.js.
 
-const Events = require('../models/events-model.js');
+
 const eventsArray = [
   {
     eventName: 'Food Truck Monday',
@@ -16,7 +16,7 @@ const eventsArray = [
     eventTime: '6-9 PM',
     zipcode: '30020',
     aboutEvent: 'Stop by the ArtsPark at Young Circle on Monday night. Bring the family. Enjoy the fresh air and have a picnic. Pick and choose from 20+ different trucks. Visit http://burgerbeast.com/arts-park/ for list of trucks.'
-    peopleAttending: [],
+    // peopleAttending: [],
   },
   {
     eventName: 'Movie Night: Galaxy Quest',
@@ -82,7 +82,10 @@ const eventsArray = [
     aboutEvent: 'Find beautiful handmade gifts and local organic fruits and vegetables.'
   },
 ];
-Event.create(
+
+const Events = require('../models/events-model.js');
+
+Events.create(
   eventsArray,            // 1st argument -> array of product info objects
 
   (err, eventResults) => {   // 2nd argument -> callback!
