@@ -64,6 +64,13 @@ const myEventRoutes = require('./routes/events-api');
 app.use('/', myEventRoutes);
 //END OF ROUTES
 
+//added this as part of deployment code
+app.use((req, res, next) => {
+  //saying if no routes match(deleted index.js route, then send user to the Angular HTML)
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');

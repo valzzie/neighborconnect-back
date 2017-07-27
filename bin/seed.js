@@ -160,6 +160,10 @@ Profile.create(
     const Shakespeare= eventsArray[6];
 
     FoodTruckMonday.peopleAttending=[Leo.id,RomeoandJuliet.id,NormaandRickard.id];
+
+
+
+
     MovieNight.peopleAttending= [AmandaandJarome.id,EricandMandy.id,VictoriaandRoman.id,ChrissyandJohn.id];
     DrumCircle.peopleAttending= [AmandaandJarome.id,EricandMandy.id,VictoriaandRoman.id];
     BeachCleanup.peopleAttending= [Leo.id,RomeoandJuliet.id,NormaandRickard.id];

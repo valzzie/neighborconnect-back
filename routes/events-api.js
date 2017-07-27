@@ -17,12 +17,33 @@ const myUploader = multer({
 // console.log("Im in / events routes");
 router.get('/api/events', (req, res, next) => {
   //returns all events.
-  EventModel.find((err, eventList) => {
+  EventModel
+  .find()
+  //to populate the actual items except for email and password.
+  .populate("peopleAttending", {email: 0, encryptedPassword: 0, _id:0})
+  .exec(
+    (err, eventList) => {
     if (err) {
       res.json(err);
       return;
     }
     res.json(eventList);
+  });
+});
+
+router.get('/api/events/:id', (req, res, next) => {
+  //returns all events.
+  EventModel
+  .findById(req.params)
+  //to populate the actual items except for email and password.
+  // .populate("peopleAttending", {email: 0, encryptedPassword: 0, _id:0})
+  .exec(
+    (err, eventDetailsList) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json(eventDetailsList);
   });
 });
 
