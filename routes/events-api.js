@@ -31,10 +31,10 @@ router.get('/api/events', (req, res, next) => {
   });
 });
 
-router.get('/api/events/:id', (req, res, next) => {
+router.get('/api/events/:myId', (req, res, next) => {
   //returns all events.
   EventModel
-  .findById(req.params)
+  .findById(req.params.myId)
   //to populate the actual items except for email and password.
   // .populate("peopleAttending", {email: 0, encryptedPassword: 0, _id:0})
   .exec(

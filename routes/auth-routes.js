@@ -13,8 +13,7 @@ const myUploader = multer({
 
 //**********************************************************************
 //post for the signup that is sent to Angular, if error respond in JSON
-router.post('/api/signup', myUploader.single('file'), (req, res, next) => {
-// myUploader.single('photoUrl')
+router.post('/api/signup', myUploader.single('profileImage'), (req, res, next) => {
 
   if(!req.body.signupEmail || !req.body.signupPassword || !req.body.signupZipcode ){
 
@@ -49,11 +48,12 @@ router.post('/api/signup', myUploader.single('file'), (req, res, next) => {
       const salt = bcrypt.genSaltSync(10);
       const scrambledPassword = bcrypt.hashSync(req.body.signupPassword, salt);
 
+      let theProfile;
 
       if (typeof req.file != "undefined"){
         console.log("RE FILE" + req.file);
 console.log("_----------------------------------------");
-        const theProfile = new ProfileModel({
+        theProfile = new ProfileModel({
 
             fullName: req.body.signupFullName,
             email: req.body.signupEmail,
@@ -61,12 +61,12 @@ console.log("_----------------------------------------");
             zipcode: req.body.signupZipcode,
             photoUrl: '/uploads/' + req.file.filename,
             tellusmore: req.body.signupMore,
-            //do I need this????
-            user: req.user._id
+
+
           });
       }
       else {
-          const theProfile = new ProfileModel({
+        theProfile = new ProfileModel({
             fullName: req.body.signupFullName,
             email: req.body.signupEmail,
             encryptedPassword: scrambledPassword,
@@ -74,11 +74,12 @@ console.log("_----------------------------------------");
             photoUrl: "/images/avatar-1295430_1280.png",
             tellusmore: req.body.signupMore,
             //do I need this????
-            user: req.user._id
+
 
         // console.log("TheProfileConsole", theProfile);
         // console.log('**************************');
       });
+    }
 
       theProfile.save((err) => {
         if (err){
@@ -101,7 +102,6 @@ console.log("_----------------------------------------");
             id: theProfile._id
           });
       });
-    }
 
 //
 // //removes the encryptedPasword from the object before sending to Angular, due to security risk.
@@ -170,7 +170,10 @@ res.status(200).json(req.user);
 router.get('/api/neighbors', (req, res, next) => {
 
   //returns all of our profiles.
-  ProfileModel.find((err, profileList) => {
+  ProfileModel
+  .find(
+
+    (err, profileList) => {
     if (err) {
       res.json(err);
       return;
@@ -179,6 +182,19 @@ router.get('/api/neighbors', (req, res, next) => {
   });
 });
 
+router.get('/api/neighbors/:myId', (req, res, next) => {
 
+  //returns all of our profiles.
+  ProfileModel
+  .findById(req.params.myId)
 
+.exec(
+    (err, specificProfile) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json(specificProfile);
+  });
+});
 module.exports = router;
