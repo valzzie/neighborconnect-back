@@ -36,7 +36,7 @@ router.get('/api/events/:myId', (req, res, next) => {
   EventModel
   .findById(req.params.myId)
   //to populate the actual items except for email and password.
-  // .populate("peopleAttending", {email: 0, encryptedPassword: 0, _id:0})
+  .populate("peopleAttending", {email: 0, encryptedPassword: 0, _id:0})
   .exec(
     (err, eventDetailsList) => {
     if (err) {

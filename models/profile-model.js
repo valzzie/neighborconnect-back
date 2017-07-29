@@ -5,7 +5,7 @@ const profileSchema = new Schema({
   email: {type: String, required: true},
   encryptedPassword: {type: String, required: true},
   zipcode: {type: String,required: true},
-  photoUrl: {type: String, default: '/images/avatar-1295430_1280.png'},
+  photoUrl: {type: String, default: '/assets/images/avatar-1295430_1280.png'},
   tellusmore: {type: String},
 
 //update this to be whatever the actual eventID is.
