@@ -6,7 +6,7 @@ const bcrypt= require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const ProfileModel= require('../models/profile-model.js');
 //serializeUser: controls what goes int the bowl aka: session.
-//(save only hte user's db ID in the bowl)- this happens ONLY when you log in
+//(save only the user's db ID in the bowl)- this happens ONLY when you log in
 passport.serializeUser((userFromDb,next)=> {
   //null refers to no error isnce we are handlling errors is another spot.
   next(null,userFromDb._id);

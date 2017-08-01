@@ -1,4 +1,3 @@
-//uncomment when ready to use it
 
 const express = require('express');
 const EventModel= require('../models/events-model.js');
@@ -20,7 +19,7 @@ router.get('/api/events', (req, res, next) => {
   EventModel
   .find()
   //to populate the actual items except for email and password.
-  .populate("peopleAttending", {email: 0, encryptedPassword: 0, _id:0})
+  .populate("peopleAttending", {email: 0, encryptedPassword: 0})
   .exec(
     (err, eventList) => {
     if (err) {
@@ -36,9 +35,10 @@ router.get('/api/events/:myId', (req, res, next) => {
   EventModel
   .findById(req.params.myId)
   //to populate the actual items except for email and password.
-  .populate("peopleAttending", {email: 0, encryptedPassword: 0, _id:0})
+  .populate("peopleAttending", {email: 0, encryptedPassword: 0})
   .exec(
     (err, eventDetailsList) => {
+    console.log(err, eventDetailsList);
     if (err) {
       res.json(err);
       return;

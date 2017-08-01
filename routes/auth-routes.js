@@ -171,7 +171,9 @@ router.get('/api/neighbors', (req, res, next) => {
 
   //returns all of our profiles.
   ProfileModel
-  .find(
+  .find()
+  .populate("eventsAttending")
+  .exec(
 
     (err, profileList) => {
     if (err) {
@@ -187,7 +189,8 @@ router.get('/api/neighbors/:myId', (req, res, next) => {
   //returns all of our profiles.
   ProfileModel
   .findById(req.params.myId)
-
+  //to populate the actual items associated to id.
+.populate("eventsAttending")
 .exec(
     (err, specificProfile) => {
     if (err) {

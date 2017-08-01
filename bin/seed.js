@@ -71,7 +71,7 @@ const eventsArray = [
   {
     eventName: 'Food Truck Monday',
     eventLocation: 'ArtsPark',
-    eventDate: ' 07-31-2017',
+    eventDate: ' 08-07-2017',
     photoUrl: '/images/hot-dog-van-1293505_640.jpg',
     eventTime: '6-9 PM',
     zipcode: '30020',
@@ -81,7 +81,7 @@ const eventsArray = [
   {
     eventName: 'Movie Night: Galaxy Quest',
     eventLocation: 'Young Circle (Amphitheatre)',
-    eventDate: '7-28-17',
+    eventDate: '08-04-17',
     photoUrl: '/images/demonstration-64151_640.jpg',
     eventTime: '8-10 PM',
     zipcode: '30020',
@@ -90,7 +90,7 @@ const eventsArray = [
   {
     eventName: 'Full Moon Drum Circle',
     eventLocation: 'Young Circle',
-    eventDate: '7-31-17',
+    eventDate: '08-03-17',
     photoUrl: '/images/pedro-lastra-162617.jpg',
     eventTime: '8-10 PM',
     zipcode: '30020',
@@ -103,7 +103,7 @@ const eventsArray = [
     photoUrl: '/images/plastic-bottles-388679_640.jpg',
     eventTime: '7-11 AM',
     zipcode: '30020',
-    aboutEvent: 'On the second Saturday of the every month from 7:00 a.m. to 11:00 a.m. volunteers meet at Charnow Park to collect litter and cigarette butts from the beach. Volunteers must be at least 8 years of age to participate and children must be accompanied by an adult. Please dress appropriately and wear sunscreen.'
+    aboutEvent: 'On the second Saturday of the every month from 7:00 a.m. to 11:00 a.m. volunteers meet at Charnow Park to collect litter and cigarette butts from the beach.  Please dress appropriately and wear sunscreen.'
   },
   {
     eventName: 'Dream Car Classic',
@@ -117,7 +117,7 @@ const eventsArray = [
   {
     eventName: 'Second Saturday Farmers Market',
     eventLocation: 'Hollywood Boulevard between 19th & 20th Avenue',
-    eventDate: '7-29-17',
+    eventDate: '08-12-17',
     photoUrl: '/images/farmers-market-1329008_640.jpg',
     eventTime: '9-3 PM',
     zipcode: '30020',
@@ -126,11 +126,11 @@ const eventsArray = [
   {
     eventName: 'Shakespeare in the Park',
     eventLocation: 'Young Circle',
-    eventDate: '7-29-17',
-    photoUrl: '/images/romeo-2498582_640.png',
+    eventDate: '08-05-17',
+    photoUrl: '/images/ballet-at-sunset-2450506_640.jpg',
     eventTime: '8:00 - 10:00 PM',
     zipcode: '30020',
-    aboutEvent: 'Shakespeare Miami presents much to do about nothing, one of Shakespears best comedies ',
+    aboutEvent: 'Shakespeare Miami presents much to do about nothing, one of Shakespears best comedies.  Bring a blanket or a chair and your family and friends to this event. ',
   },
 
 ];
@@ -160,16 +160,12 @@ Profile.create(
     const Shakespeare= eventsArray[6];
 
     FoodTruckMonday.peopleAttending=[Leo.id,RomeoandJuliet.id,NormaandRickard.id];
-
-
-
-
-    MovieNight.peopleAttending= [AmandaandJarome.id,EricandMandy.id,VictoriaandRoman.id,ChrissyandJohn.id];
+    MovieNight.peopleAttending= [AmandaandJarome.id,VictoriaandRoman.id,ChrissyandJohn.id];
     DrumCircle.peopleAttending= [AmandaandJarome.id,EricandMandy.id,VictoriaandRoman.id];
     BeachCleanup.peopleAttending= [Leo.id,RomeoandJuliet.id,NormaandRickard.id];
     CarShow.peopleAttending= [ChrissyandJohn.id, VictoriaandRoman.id];
-    FarmersMarket.peopleAttending= [Leo.id,RomeoandJuliet.id,NormaandRickard.id];
-    Shakespeare.peopleAttending= [RomeoandJuliet.id,AmandaandJarome.id,VictoriaandRoman.id];
+    FarmersMarket.peopleAttending= [Leo.id,RomeoandJuliet.id,NormaandRickard.id,EricandMandy.id, ChrissyandJohn.id];
+    Shakespeare.peopleAttending= [RomeoandJuliet.id,AmandaandJarome.id,VictoriaandRoman.id,EricandMandy.id];
 
     profileResults.forEach((oneProfile) => {
       console.log('New Profile! ' + oneProfile.fullName);
@@ -184,6 +180,7 @@ Profile.create(
           return;
         }
 
+        
         eventResults.forEach((oneEvent) => {
           console.log('New Event! ' + oneEvent.eventName);
         });

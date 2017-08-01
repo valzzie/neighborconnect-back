@@ -8,10 +8,8 @@ const profileSchema = new Schema({
   photoUrl: {type: String, default: '/assets/images/avatar-1295430_1280.png'},
   tellusmore: {type: String},
 
-//update this to be whatever the actual eventID is.
-// ref must be here in order for the get to get all camel Owners to work.
-// you need ref to use populate()  //ref is the
-// string name of the model that the ID refers to, so this one refers to EventsModel hence Events.
+// you need ref to use populate()
+//ref is the string name of the model that the ID refers to, so this one refers to EventsModel hence Events.
   eventsAttending: [ {type: Schema.Types.ObjectId,ref: 'Events'} ]
   },
 
