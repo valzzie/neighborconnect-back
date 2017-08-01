@@ -180,7 +180,6 @@ Profile.create(
           return;
         }
 
-        
         eventResults.forEach((oneEvent) => {
           console.log('New Event! ' + oneEvent.eventName);
         });
